@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by Артём on 07.05.2017.
@@ -16,17 +17,17 @@ public class Main {
     }
 
     public static List<List<Integer>> getTable() throws IOException {
-        BufferedReader in = new BufferedReader(new FileReader("table.txt"));
+        Scanner in = new Scanner(System.in);
         List<List<Integer>> table = new ArrayList<>();
         int i = 0;
         String[] words;
         String line;
 
-        while ((line = in.readLine()).length() != 0) {
+        while ((line = in.nextLine()).length() != 0) {
             table.add(new ArrayList<Integer>());
             words = line.split(" ");
             for (int j = 0; j < words.length; j++)
-                table.get(i).add(Integer.parseInt(words[j]));
+                table.get(i).add(Integer.parseInt(words[j])); // TODO добавить проверку на наличия целого числа
             ++i;
         }
         return table;
