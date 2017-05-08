@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -11,80 +12,26 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) throws IOException {
-        List<List<Integer>> table = getTable();
-        System.out.println(table.toString());
-        check(table);
-    }
+        Queque queque = new Queque();
+        queque.add("Moscow");
+        queque.add("London");
+        queque.add("Tokyo");
+        queque.add("Samara");
 
-    public static List<List<Integer>> getTable() throws IOException {
-        Scanner in = new Scanner(System.in);
-        List<List<Integer>> table = new ArrayList<>();
-        int i = 0;
-        String[] words;
-        String line;
+        for (int i = 0; i < queque.length(); i++)
+            System.out.println(queque.get(i).getDescription());
 
-        while ((line = in.nextLine()).length() != 0) {
-            table.add(new ArrayList<Integer>());
-            words = line.split(" ");
-            for (int j = 0; j < words.length; j++)
-                table.get(i).add(Integer.parseInt(words[j])); // TODO добавить проверку на наличия целого числа
-            ++i;
-        }
-        return table;
-    }
+        System.out.println();
 
-    public static void check(List<List<Integer>> table) {
-        int summ = 0;
-        int count = 0;
+        Iterator<Queque.Node> iterator = queque.iterator();
+        while(iterator.hasNext())
+            System.out.println(iterator.next().getDescription());
 
-        for (int i = 0; i < table.get(0).size(); i++)
-            summ += table.get(0).get(i);
+        queque.remove(0);
+        System.out.println();
 
-        // проверка колонок
-
-        for (int j = 0; j < table.get(0).size(); j++) {
-            for (int i = 0; i < table.size(); i++)
-                count += table.get(i).get(j);
-
-            if (count != summ) {
-                System.out.println("[проверка колонок] Это не магический квадрат!");
-                return;
-            }
-            count = 0;
-        }
-        // проверка строк
-        for (int i = 0; i < table.size(); i++) {
-            for (int j = 0; j < table.get(0).size(); j++)
-                count += table.get(i).get(j);
-
-            if (count != summ) {
-                System.out.println("[проверка строк] Это не магический квадрат!");
-                return;
-            }
-
-            count = 0;
-        }
-
-
-        // проверка диагоналей
-        for (int i = 0; i < table.size(); i++)
-            count += table.get(i).get(i);
-
-        if (count != summ) {
-            System.out.println("[проверка диагоналей 1] Это не магический квадрат!");
-            return;
-        }
-
-        count = 0;
-
-        for(int i=0, j = table.size() - 1; i<table.size(); j--, i++)
-                count += table.get(i).get(j);
-
-        if (count != summ) {
-            System.out.println("[проверка диагоналей 2] Это не магический квадрат!");
-            return;
-        }
-        else
-            System.out.println("Это магический квадрат!");
+        iterator = queque.iterator();
+        while(iterator.hasNext())
+            System.out.println(iterator.next().getDescription());
     }
 }
